@@ -5,7 +5,7 @@
 // 0
 $kauppa = array(
 "otsikko" => "Kauppa",
-"tavarat" => array(""),
+"tavarat" => "",
 "teksti" => "Olet kaupassa mitä teet?",
 "vaihtoehdot" => array(
 	array("napin_teksti" => "1. Vedät aseen esiin ja huudat kädet ylös.","mihin_siirtyy" => "KADET_YLHAALLA"),
@@ -17,7 +17,7 @@ $kauppa = array(
 // 1
 $hylly = array(
 "otsikko" => "Hyllyllä",
-"tavarat" => array(""),
+"tavarat" => "",
 "teksti" => "Hämäyksesi menee täydestä ja huomaat epäilyttävän hyypiön tulevan ulos pullonpalautusautomaattien viereisestä ovesta.
 mitä teet?", 
 "vaihtoehdot" => array(
@@ -36,7 +36,7 @@ $kadet_ylhaalla = array(
 // 3
 $takahuoneessa = array(
 "otsikko" => "Takahuone",
-"tavarat" => array(""),
+"tavarat" => "",
 "teksti" => "Tulet hämyiseen huoneeseen ja huomaat huomaat pöydällä epäilyttäviä valkoisia pusseja Mitä teet?", 
 "vaihtoehdot" => 	array(
 		array("napin_teksti" => "1. Menet pussin luo ja maistat tuotetta.","mihin_siirtyy" => "TUNTEMATON"),
@@ -47,7 +47,7 @@ $takahuoneessa = array(
 
 $luotiliivi = array(
 "otsikko" => "Luotiliivi", 
-"tavarat" => array("luotiliivi"),
+"tavarat" => "luotiliivi",
 "teksti" => "Löydät tuolilta luotiliivin ja puet sen yllesi.", 
 "vaihtoehdot" => array(
 	array("napin_teksti" => "1. Jatka...", "mihin_siirtyy" => "TAKAHUONEESSA" ) ) // 2
@@ -56,7 +56,7 @@ $luotiliivi = array(
 // 4
 $parkkipaikka = array(
 "otsikko" => "Parkkipaikka", // 0
-"tavarat" => array(""),
+"tavarat" => "",
 "teksti" => "Menet kaupasta ulos ja päätät irtisanoutua, koska pääsi ei enää kestä. LOPPU", // 1
 "vaihtoehdot" => array() // 2
 );
@@ -64,7 +64,7 @@ $parkkipaikka = array(
 $pelitilat = array( "KAUPPA" => $kauppa, "HYLLY" => $hylly, "KADET_YLHAALLA" => $kadet_ylhaalla, "TAKAHUONEESSA" => $takahuoneessa, "PARKKIPAIKKA" => $parkkipaikka, "LUOTILIIVI" => $luotiliivi );
 
 $nykyinen_tila="KAUPPA";
-$tavarat="";
+$tavarat="ase";
 if( isset( $_GET["valinta"] ) )  {
 	$nykyinen_tila = $_GET["valinta"];
 }
@@ -72,10 +72,13 @@ if( isset( $_GET["valinta"] ) )  {
 echo "<h1>".$pelitilat[$nykyinen_tila]["otsikko"]."</h1>";
 echo $pelitilat[$nykyinen_tila]["teksti"];
 echo "<br>";
+echo "Tavarasi ovat:".$tavarat."<br>";
+
 foreach($pelitilat[$nykyinen_tila]["vaihtoehdot"] as $valinta){ // valinta on esim: array("napin_teksti" => "1. Menet pussin luo ja maistat tuotetta.","mihin_siirtyy" => "TUNTEMATON")
 	print '
 			<form action="'. $_SERVER["PHP_SELF"]. '" method="get">
 			<input type="hidden" name="valinta" value="'.$valinta["mihin_siirtyy"].'">
+			<input type="hidden" name="tavarat" value="'.$tavarat.'">
 			<input type="submit" value="'.$valinta["napin_teksti"].'"> 
 			</form>';
 }
